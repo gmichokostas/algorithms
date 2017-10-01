@@ -2,6 +2,7 @@
 #define LIST_HPP
 
 #include <iostream>
+#include <string>
 #include "node.hpp"
 
 template<typename T>
@@ -14,13 +15,15 @@ public:
     bool is_empty() const { return first == nullptr; }
     int  length()   const { return len; }
 
+    std::string get_first() const { return std::to_string(first->data); }
+    std::string get_last()  const { return std::to_string(last->data); }
+
     void append(T item);
     void prepend(T item);
+    void insert_after(int pos, const T& item);
 
     void delete_first();
     void delete_last();
-
-    void insert_after(int pos, const T& item);
 
     void output(std::ostream& out) const;
 private:
@@ -71,13 +74,13 @@ void List<T>::insert_after(int pos, const T& item)
 template<typename T>
 void List<T>::append(T item)
 {
-    Node<T>* oldLast = last;
+    Node<T>* old_last = last;
     last = new Node<T>;
     last->data = item;
     last->next = nullptr;
 
     if (is_empty()) first = last;
-    else oldLast->next = last;
+    else old_last->next = last;
 
     len++;
 }
@@ -86,10 +89,12 @@ void List<T>::append(T item)
 template<typename T>
 void List<T>::prepend(T item)
 {
-    Node<T>* new_node;
-    new_node->data = item;
-    new_node->next = first;
-    first = new_node;
+    Node<T>* old_first = first;
+    first = new Node<T>;
+    first->data = item;
+    first->next = old_first;
+    if (len == 0) last = first;
+
     len++;
 }
 
