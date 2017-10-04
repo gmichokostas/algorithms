@@ -14,7 +14,7 @@ public:
     template <typename U> bool is_sorted(const U& container) const;
 
 private:
-    void swap(T container[], const int i, const int j);
+    template <typename U> void swap(U& container, const int i, const int j);
     bool less(T a, T b) const { return a < b; }
 };
 
@@ -42,8 +42,9 @@ bool Selection<T>::is_sorted(const U& container) const
     return true;
 }
 
-template <typename T>
-void Selection<T>::swap(T container[], const int i, const int j)
+template<typename T>
+template <typename U>
+void Selection<T>::swap(U& container, const int i, const int j)
 {
     T temp = container[i];
     container[i] = container[j];
