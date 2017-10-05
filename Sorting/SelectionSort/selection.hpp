@@ -35,7 +35,8 @@ template<typename T>
 template<typename U>
 bool Selection<T>::is_sorted(const U& container) const
 {
-    for (int i = 1; i < Array::size(container); i++)
+    unsigned array_len = Array::size(container);
+    for (int i = 1; i < array_len; i++)
         if (less(container[i], container[i - 1]))
             return false;
 
