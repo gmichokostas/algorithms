@@ -1,6 +1,8 @@
 #ifndef INSERTION_HPP
 #define INSERTION_HPP
 
+#include <utility>
+
 namespace Array
 {
     template<typename T, unsigned N>
@@ -14,9 +16,9 @@ namespace Insertion
         template <typename T> bool less(const T& a, const T& b) { return a < b;  }
         template <typename T> void swap(T& container, const int i, const int j)
         {
-            auto temp = container[i];
-            container[i] = container[j];
-            container[j] = temp;
+            auto temp(std::move(container[i]));
+            container[i] = std::move(container[j]);
+            container[j] = std::move(temp);
         }
     }
 
